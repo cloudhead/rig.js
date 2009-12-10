@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <style>
+      body { color: white; font-family: courier;}
+      li.pass { background-color: green; }
+      li.fail { background-color: red; }
+      ul { list-style-type: none; padding:0}
+      li { margin: 5px; padding: 5px; list-style-type: none}
+    </style>
+    <script src="./rig.js"></script>
+    <script type="text/javascript">
+      function report(name, result) {
+        var e = document.getElementById("spec");
+        var css = result ? "<li class='pass'>" : "<li class='fail'>";
+
+        e.innerHTML += css + name + "</li>";
+      }
+
+      window.onload = function () {
+        var types = ['string', 'number', 'array', 'function', 'regexp', 'object'];
+        var extension = {};
+        var candidates = [
+          "hello", 123, [1, 2, 3], function () { return }, /hello/, {hello:"world"}
+        ];
+
+        for (var i = 0; i < types.length; i++) {
+          extension[types[i]] = { test: function () { return candidates[i] } };
+        }
+
+        var $ = rig.builder(extension);
+
+        for (var i = 0, test; i < candidates.length; i++) {
+          try {
+            test = $(candidates[i]).test() === candidates[i];
+          } catch (e) {
+            test = false;
+          }
+
+          if (test) {
+            report(types[i] + ": " + candidates[i].toString(), true);
+          } else {
+            report(types[i] + ": " + candidates[i].toString(), false);
+          }
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <ul id="spec"></ul>
+  </body>
+</html>
