@@ -3,6 +3,9 @@ rig.js
 
 Temporally extend an object's capabilities.
 
+synopsis
+--------
+
 Create a rig
 
     var $ = rig.builder({
