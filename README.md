@@ -25,7 +25,7 @@ Create a rig
        }
     });
 
-Apply it to a couple objects, to use new functionality
+Apply it to a couple objects to use the new functionality
     
     $("rig").capitalize();                   // "Rig"
     $(["hello", "", "world", ""]).compact(); // ["hello", "world"]
